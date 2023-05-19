@@ -14,11 +14,27 @@ public class BallThrowingScript : MonoBehaviour
     [Tooltip("this is the redius of the 'hitting zone'")]
     [SerializeField] private float zoneRadius = 2f;//2 is realistic
 
+
+    [Tooltip("the ball is thrown every 'timer' period")]
+    [SerializeField] private float throwTimer = 5f;//5 seconds seems enough
+    [Tooltip("the cooldown to throw the ball every 'timer' period")]
+    private float cooldown;
+
+
+
+
     private void Update()
     {
         if(Input.GetKeyUp(KeyCode.Space))
         {
             ThrowBalls();
+        }
+
+        cooldown -= Time.deltaTime;
+        if(cooldown <= 0)
+        {
+            ThrowBalls();
+            cooldown = throwTimer;
         }
     }
 
